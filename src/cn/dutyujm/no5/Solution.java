@@ -22,6 +22,7 @@ public class Solution {
         System.out.println(solution.pop());
         System.out.println(solution.pop());
 
+
     }
     public void push(int node) {
         stack1.push(node);
