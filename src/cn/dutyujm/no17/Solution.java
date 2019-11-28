@@ -1,7 +1,11 @@
 package cn.dutyujm.no17;
 
 //输入两棵二叉树A，B，判断B是不是A的子结构。（ps：我们约定空树不是任意一个树的子结构）
-
+/**
+ * @Author YuJunMing
+ * @Date 2019/11/28 10:47
+ * DESCRIPTION:
+ */
 public class Solution {
     public static void main(String[] args) {
         TreeNode root1 = new TreeNode(1);
@@ -9,12 +13,10 @@ public class Solution {
         TreeNode root2 = new TreeNode(1);
         root2.left = new TreeNode(2);
         Solution solution = new Solution();
-        System.out.println(solution.HasSubtree(root1,root2));
-
+        System.out.println(solution.hasSubtree(root1,root2));
     }
 
-
-    public  boolean HasSubtree(TreeNode root1, TreeNode root2) {
+    public  boolean hasSubtree(TreeNode root1, TreeNode root2) {
         boolean result = false;
         //当Tree1和Tree2都不为零的时候，才进行比较。否则直接返回false
         if (root2 != null && root1 != null) {
@@ -25,12 +27,12 @@ public class Solution {
             }
             //如果找不到，那么就再去root的左儿子当作起点，去判断时候包含Tree2
             if (!result) {
-                result = HasSubtree(root1.left,root2);
+                result = hasSubtree(root1.left,root2);
             }
 
             //如果还找不到，那么就再去root的右儿子当作起点，去判断时候包含Tree2
             if (!result) {
-                result = HasSubtree(root1.right,root2);
+                result = hasSubtree(root1.right,root2);
             }
         }
         //返回结果
@@ -50,7 +52,6 @@ public class Solution {
         if (node1.val != node2.val) {
             return false;
         }
-
         //如果根节点对应的上，那么就分别去子节点里面匹配
         return doesTree1HaveTree2(node1.left,node2.left) && doesTree1HaveTree2(node1.right,node2.right);
     }
