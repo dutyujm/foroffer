@@ -1,4 +1,4 @@
-package cn.dutyujm.test;
+package cn.dutyujm.javalearn;
 
 
 import java.sql.Connection;

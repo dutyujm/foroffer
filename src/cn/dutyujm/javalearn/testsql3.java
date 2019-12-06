@@ -1,4 +1,4 @@
-package cn.dutyujm.test;
+package cn.dutyujm.javalearn;
 
 
 import java.sql.Connection;
@@ -22,7 +22,7 @@ import java.util.Date;
  * 3）INSERT INTO table (field1,field2,field3) VALUES ('a',"b","c"), ('a',"b","c"),('a',"b","c");
  *      将以上Mysql插入模式用java语言字符串拼接SQL方法如下
  */
-public class testSQl {
+public class testsql3 {
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
         Connection conn;
         PreparedStatement stmt;
@@ -45,7 +45,7 @@ public class testSQl {
         Double daily_performance_weight = 0.7;
         Double test_performance_weight = 0.3;
 
-        for (int i = 50058; i < 10000000; i = i +10) {
+        for (int i = 40000000; i < 50000000; i = i +10) {
             stmt.setString(1, null);
             stmt.setString(2, CourseId.toString());
             stmt.setString(3, null);
