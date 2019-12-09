@@ -1,19 +1,24 @@
 package cn.dutyujm.javalearn.Collection;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class test {
 
     public static  void main(String[] args) {
+        /**List数据结构*/
         /**ArrayList的数据是数组一样的也就是说ArrayList中的数据查找速度快但是向中间插入删除会很慢，因为整个list会移动*/
-        List<Integer> integerList = new ArrayList<>();
+        ArrayList<Integer> integerList = new ArrayList<>();
+        /**Vector和ArrayList很相似,基础都是数组,但Vector使用了synchronized方法是线程同步的,线程安全,所以一般来说Arraylist比较快,
+         * 但是因为Vector每次扩容都是目前数组长度的100%,而ArrayList扩容是目前数组长度的50%,所以数据量大的时候Vector更有优势*/
+        Vector<Integer> vector = new Vector<>();
         /**LinkedList是链表，也就说其插入删除一个数据会很快，不涉及整体的移动,但是查找速度会很慢，因为要涉及指针的移动*/
-        List<Integer> integerList1 = new LinkedList<>();
+        LinkedList<Integer> integerLinkedList = new LinkedList<>();
         /**栈是先进后出的接口，java提供的stack是属于list类的*/
-        Stack<Integer> integerList2 = new Stack<>();
+        Stack<Integer> stack = new Stack<>();
         /**读写分离,写时复制出一个新的数组,完成插入、修改或者移除操作后将新数组赋值给array,增删改都会new一个新的数组，所以写不会对读造成影响，支持读多写少的并发情况,*/
-        List<Integer> integerList3 = new CopyOnWriteArrayList<>();
+        CopyOnWriteArrayList<Integer> integerCopyOnWriteArrayList = new CopyOnWriteArrayList<>();
 
         integerList.add(1);
         integerList.add(3);
@@ -25,32 +30,45 @@ public class test {
         integerList.sort((o1, o2) -> o1-o2);
         System.out.println(integerList);
 
-        integerList1.add(1);
-        integerList1.add(3);
-        integerList1.add(3421);
-        integerList1.add(21);
-        integerList1.add(342);
-        integerList1.add(5324);
-        integerList1.add(12);
-        System.out.println(integerList1);
+        vector.add(1);
+        vector.add(3);
+        vector.add(3421);
+        vector.add(21);
+        vector.add(342);
+        vector.add(5324);
+        vector.add(12);
+        System.out.println(vector);
 
-        integerList2.add(1);
-        integerList2.add(3);
-        integerList2.add(3421);
-        integerList2.add(21);
-        integerList2.add(342);
-        integerList2.add(5324);
-        integerList2.add(12);
-        integerList2.peek();//peek可以获取栈顶元素的值且不出栈
-        integerList2.pop();//pop获取栈顶元素的值且出栈
-        integerList2.push(123);//push向栈里加东西,返回值是参数类型
-        integerList2.add(312);//add是继承自Vector的方法,返回值是参数类类型
-        System.out.println(integerList2);
+        integerLinkedList.add(1);
+        integerLinkedList.add(3);
+        integerLinkedList.add(3421);
+        integerLinkedList.add(21);
+        integerLinkedList.add(342);
+        integerLinkedList.add(5324);
+        integerLinkedList.add(12);
+        System.out.println(integerLinkedList);
 
+        stack.add(1);
+        stack.add(3);
+        stack.add(3421);
+        stack.add(21);
+        stack.add(342);
+        stack.add(5324);
+        stack.add(12);
+        stack.peek();//peek可以获取栈顶元素的值且不出栈
+        stack.pop();//pop获取栈顶元素的值且出栈
+        stack.push(123);//push向栈里加东西,返回值是参数类型
+        stack.add(312);//add是继承自Vector的方法,返回值是参数类类型
+        System.out.println(stack);
 
-
-
-
+        integerCopyOnWriteArrayList.add(1);
+        integerCopyOnWriteArrayList.add(3);
+        integerCopyOnWriteArrayList.add(3421);
+        integerCopyOnWriteArrayList.add(21);
+        integerCopyOnWriteArrayList.add(342);
+        integerCopyOnWriteArrayList.add(5324);
+        integerCopyOnWriteArrayList.add(12);
+        System.out.println(integerCopyOnWriteArrayList);
 
 
         /**
@@ -123,44 +141,83 @@ public class test {
 
 
 
-        /**Map类型
+        /**Map类型(Map是双列的,Collection是单列的(set和List本质上都是Collection的子类),Map的键是唯一的，使用自定义类的时候也需要重写equals方法)
          *
+         * HashMap:使用位桶和红黑树，它是线程不安全的Map，方法上没有synchronize关键字修饰
+         * hashTable线程安全，它实现线程安全的方法是在各个方法上添加了synchronize关键字。而应该使用ConcurrentHashMap。
+         * ConcurrentHashMap是线程安全的
+         * TreeMap也是一个很常用的map实现类，因为他具有一个很大的特点就是会对Key进行排序，使用了TreeMap存储键值对，再使用iterator进行输出时，需要重写compartor接口
+         * LinkedHashMap 有序,先进先出
          *
-         *
-         *
-         * */
+         **/
+        //HashMap有两个重要的成员变量，一个是桶大小，一个是负载因子，桶大小只会是2的次方默认是16,而负载因子默认是0.75,意思是当map里的元素大于16*0.75后,map会扩容
+        //map每次扩容的大小会是原来的2倍
+
         HashMap<Person,String> personStringHashMap = new HashMap<>();
-        personStringHashMap.put(new Person("saas",12),"tast");
+        personStringHashMap.put(new Person("saas",12),"tast");//存储键值对
         personStringHashMap.put(new Person("fds",321),"sdaf");
-        personStringHashMap.put(new Person("das",32),"zxcv");
-        personStringHashMap.put(new Person("gwe",113),"hjg");
-        personStringHashMap.put(new Person("gf",324),"kui");
-        personStringHashMap.put(new Person("dsadd",324),"grht");
-        personStringHashMap.put(new Person("fdsfda",324),"gfnd");
-        personStringHashMap.put(new Person("fasdfzxcv",3124),"dgbs");
         personStringHashMap.put(new Person("哇哇哇",324),"wnrt");
         personStringHashMap.put(new Person("发送到",324),"wnrt");
         personStringHashMap.put(new Person("文身断发",324),"wnrt");
         personStringHashMap.put(new Person("你规范化",324),"wnrt");
         personStringHashMap.put(new Person("十多个",324),"wnrt");
+
+        personStringHashMap.get(new Person("十多个",324));//通过键拿值
+        personStringHashMap.isEmpty();//判空
+        personStringHashMap.size();//得到大小
+        personStringHashMap.containsKey(new Person("十多个",324));//判断是否包含
+        personStringHashMap.clear();//清空
+
+        /**遍历输出键*/
+        for (Person person: personStringHashMap.keySet()) {
+            System.out.println(person);
+        }
+        /**遍历输出值*/
+        for (String str:personStringHashMap.values()) {
+            System.out.println(str);
+        }
+
+        /**遍历map的几种方法*/
+        Iterator<Map.Entry<Person, String>> entryIterator=personStringHashMap.entrySet().iterator();
+        while(entryIterator.hasNext()) {
+            Map.Entry<Person,String> entry=entryIterator.next();
+            Person key=entry.getKey();
+            String value=entry.getValue();
+            System.out.println(key+" "+value);
+        }
+
         System.out.println(personStringHashMap);
 
-
         HashMap<Person,String> personStringHashMap2 = new HashMap<>();
-        personStringHashMap2.put(new Person("saas",12),"tast");
-        personStringHashMap2.put(new Person("gwe",113),"hjg");
-        personStringHashMap2.put(new Person("fds",321),"sdaf");
-        personStringHashMap2.put(new Person("das",32),"zxcv");
-        personStringHashMap2.put(new Person("gf",324),"kui");
-        personStringHashMap2.put(new Person("fasdfzxcv",3124),"dgbs");
-        personStringHashMap2.put(new Person("dsadd",324),"grht");
-        personStringHashMap2.put(new Person("fdsfda",324),"gfnd");
-        personStringHashMap2.put(new Person("哇哇哇",324),"wnrt");
-        personStringHashMap2.put(new Person("你规范化",324),"wnrt");
-        personStringHashMap2.put(new Person("十多个",324),"wnrt");
-        personStringHashMap2.put(new Person("发送到",324),"wnrt");
-        System.out.println(personStringHashMap2);
-        System.out.println(personStringHashMap.equals(personStringHashMap2));
+        personStringHashMap.put(new Person("更符合＋",324),"bsdgfbhsgdfb");
+        personStringHashMap.put(new Person("国道3",324),"fdsgfdsg");
+        personStringHashMap.put(new Person("根号他",324),"wnrdfgdfst");
+
+        /**putAll方法可以在一个map中加入另一个map中的所有键值对*/
+        personStringHashMap2.putAll(personStringHashMap);
+        /**clear方法可以清空map*/
+        personStringHashMap2.clear();
+        /**看map中是否有键为某个元素的键值对*/
+        personStringHashMap2.containsKey(new Person("十多个",324));
+        /**将map中的键值对以key=value的形式加入到set中*/
+        Set set = personStringHashMap.entrySet();
+        /**返回所有的值*/
+        Collection col = personStringHashMap.values();
+        /**返回所有的键*/
+        set = personStringHashMap.keySet();
+
+        //下面这个是一个线程安全的map
+        Map<Person,String> personStringHashMap3 = new ConcurrentHashMap<>();
+        /**putIfAbsent方法,如果key对应的value不存在就put,存在就返回已存在的值*/
+        personStringHashMap3.putIfAbsent(new Person("根号他",324),"wnrdfgdfst");
+        /**在remove有两个参数的时候，remove会判断key是否对应着value，如果是则移除并返回true否则为false*/
+        personStringHashMap3.remove(new Person("根号他",324),"wnrdfgdfst");
+        /**replace(K key, V oldValue, V newValue)如果当前key对应的值是oldValue则替换为newValue并返回true*/
+        personStringHashMap3.replace(new Person("根号他",324),"wnrdfgdfst","sdsss");
+
+
+
+
 
     }
 }
