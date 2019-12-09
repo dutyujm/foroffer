@@ -7,6 +7,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class test {
 
     public static  void main(String[] args) {
+
         /**List数据结构*/
         /**ArrayList的数据是数组一样的也就是说ArrayList中的数据查找速度快但是向中间插入删除会很慢，因为整个list会移动*/
         ArrayList<Integer> integerList = new ArrayList<>();
@@ -58,7 +59,7 @@ public class test {
         stack.peek();//peek可以获取栈顶元素的值且不出栈
         stack.pop();//pop获取栈顶元素的值且出栈
         stack.push(123);//push向栈里加东西,返回值是参数类型
-        stack.add(312);//add是继承自Vector的方法,返回值是参数类类型
+        stack.add(312);//add是继承自Vector的方法,返回值是布尔值
         System.out.println(stack);
 
         integerCopyOnWriteArrayList.add(1);
@@ -69,6 +70,28 @@ public class test {
         integerCopyOnWriteArrayList.add(5324);
         integerCopyOnWriteArrayList.add(12);
         System.out.println(integerCopyOnWriteArrayList);
+
+        /**List遍历方法*/
+        /**增强for循环*/
+        for(Integer attribute : integerCopyOnWriteArrayList) {
+            System.out.println(attribute);
+        }
+        /**普通for循环,在循环ArrayList的时候效率高*/
+        for(int i = 0;i < integerCopyOnWriteArrayList.size(); i ++){
+            System.out.println(integerCopyOnWriteArrayList.get(i));
+        }
+        /**迭代器循环，如果要remove元素的话必须使用这种循环*/
+        System.out.println("迭代器方法");
+        Iterator<Integer> iter = integerList.iterator();
+            while (iter.hasNext()){
+                Integer i =  iter.next();
+                if (i.equals(1)){
+                    iter.remove();
+                    System.out.println("删除");
+                }
+                System.out.println(i);
+            }
+        System.out.println("删除后数组"+integerList);
 
 
         /**
@@ -172,19 +195,12 @@ public class test {
         for (Person person: personStringHashMap.keySet()) {
             System.out.println(person);
         }
+
         /**遍历输出值*/
         for (String str:personStringHashMap.values()) {
             System.out.println(str);
         }
 
-        /**遍历map的几种方法*/
-        Iterator<Map.Entry<Person, String>> entryIterator=personStringHashMap.entrySet().iterator();
-        while(entryIterator.hasNext()) {
-            Map.Entry<Person,String> entry=entryIterator.next();
-            Person key=entry.getKey();
-            String value=entry.getValue();
-            System.out.println(key+" "+value);
-        }
 
         System.out.println(personStringHashMap);
 
@@ -215,7 +231,60 @@ public class test {
         /**replace(K key, V oldValue, V newValue)如果当前key对应的值是oldValue则替换为newValue并返回true*/
         personStringHashMap3.replace(new Person("根号他",324),"wnrdfgdfst","sdsss");
 
+        //HashTable也是线程安全的,不过其效率过低,get/put所有相关操作都是synchronized的,太慢了,所以不怎么使用
+        Map<Person,String>  personStringHashtable= new Hashtable<>();
 
+        /**linkedHashMap是有序的,输出顺序即为插入顺序,当对其使用默认构造函数的时候，accessOrder为false,也就是get方法不会改变顺序
+         * 但是如果accessOrder设置为了true时，每一次get方法会将get到的元素置于map的最后面(先删除再插入)
+         * 线程不安全
+         * */
+        LinkedHashMap<Person,String> personStringLinkedHashMap = new LinkedHashMap<Person,String>(16,0.75f,false);
+        personStringLinkedHashMap.put(new Person("一",12),"一");//存储键值对
+        personStringLinkedHashMap.put(new Person("二",321),"二");
+        personStringLinkedHashMap.put(new Person("三",324),"三");
+        personStringLinkedHashMap.put(new Person("四",324),"四");
+
+        System.out.println(personStringLinkedHashMap);
+
+        personStringLinkedHashMap.get(new Person("二",321));
+        System.out.println(personStringLinkedHashMap);
+        personStringLinkedHashMap.put(new Person("三",324),"三");
+        System.out.println(personStringLinkedHashMap);
+
+        /** TreeMap自带排序的(还是得自己去实现),如果需要排序则使用TreeMap,但是效率相对于HashMap更低*/
+        TreeMap<Person,String> personStringTreeMap = new TreeMap<>();
+        personStringTreeMap.put(new Person("一",12),"一");//存储键值对
+        personStringTreeMap.put(new Person("二",432),"二");
+        personStringTreeMap.put(new Person("三",324),"三");
+        personStringTreeMap.put(new Person("四",123),"四");
+
+        System.out.println(personStringTreeMap);
+
+        /**遍历map的三种方式*/
+        /**最常用的方法用Map.Entry遍历*/
+        for (Map.Entry<Person, String> entry : personStringTreeMap.entrySet()) {
+            System.out.println("key=" + entry.getKey() + ",value=" + entry.getValue());
+        }
+        /**如果只需要遍历key或者value可使用keySet或者Values这样子效率更高，可以提升越10%*/
+        for (Person key : personStringLinkedHashMap.keySet()) {
+            System.out.println("key=" + key);
+        }
+        for (Object value : personStringLinkedHashMap.values()) {
+            System.out.println("value=" + value);
+        }
+        /**使用迭代器Iterator进行遍历Map*/
+        Iterator<Map.Entry<Person, String>> entryIterator=personStringHashMap.entrySet().iterator();
+        while(entryIterator.hasNext()) {
+            Map.Entry<Person,String> entry = entryIterator.next();
+            Person key=entry.getKey();
+            String value=entry.getValue();
+            System.out.println(key+" "+value);
+            /**同时，如果要在遍历过程中remove某个元素，一定要使用迭代器进行遍历，否则会有异常*/
+            if (Objects.equals(key,new Person("根号他",324))){
+                entryIterator.remove();
+            }
+        }
+        System.out.println(personStringHashMap);
 
 
 
