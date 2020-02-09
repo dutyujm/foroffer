@@ -1,5 +1,7 @@
 package cn.dutyujm.offer.no31;
 
+import java.util.Objects;
+
 /**
  * @Author YuJunMing
  * @Date 2020/2/8 23:02
@@ -9,18 +11,28 @@ package cn.dutyujm.offer.no31;
  */
 public class Solution {
     public int NumberOf1Between1AndN_Solution(int n) {
+        if (n<0) {
+            return 0;
+        }
 
         int cnt = 0;
-        for (int m = 1; m <= n; m *= 10) {
-            int a = n / m, b = n % m;
-            cnt += (a + 8) / 10 * m + (a % 10 == 1 ? b + 1 : 0);
+
+        for (int i = 1; i <=n; i++) {
+            Integer tmp = i;
+            char [] a = tmp.toString().toCharArray();
+            for (char c : a) {
+                if (Objects.equals(c,'1')) {
+                   cnt++ ;
+                }
+
+            }
         }
         return cnt;
     }
 
     public static void main(String[] args) {
         Solution solution = new Solution();
-        System.out.println(solution.NumberOf1Between1AndN_Solution(13));
+        System.out.println(solution.NumberOf1Between1AndN_Solution(15488484));
 
     }
 }
