@@ -1,12 +1,14 @@
 package cn.dutyujm.sort;
 
+import java.util.Objects;
+
 public class KuaiPai {
-    public void quickSort(int [] array,int right,int left) {
-        if(right>left){
+    public void quickSort(int [] array,int left,int right) {
+        if(left>right){
             return;
         }
-        int lp = right;
-        int rp = left;
+        int lp = left;
+        int rp = right;
         int tmp = array[lp];
         while (lp < rp) {
             while (lp < rp && array[rp] >= tmp) {
@@ -22,22 +24,22 @@ public class KuaiPai {
             }
 
         }
-        array[right] =array[lp];
+        array[left] =array[lp];
         array[lp] = tmp;
-        quickSort(array, right, lp - 1);
-        quickSort(array, lp + 1, left);
+        quickSort(array, left, lp - 1);
+        quickSort(array, lp + 1, right);
 
     }
 
+
+
     public static void main(String[] args) {
         KuaiPai kuaiPai = new KuaiPai();
-        int[]  array = new int[]{1,3,45,32,5};
+        int[]  array = new int[]{1,3,45,32,5,3,23,2,32,3,21,4,1,1};
          kuaiPai.quickSort(array,0,array.length-1);
         for (int i = 0; i < array.length; i++) {
             System.out.println(array[i]);
         }
-
-
 
     }
 }

@@ -2,11 +2,7 @@ package cn.dutyujm.shejimoshi.jieshiqi;
 
 import java.util.HashMap;
 
-/**
- * �ӷ�������
- * @author Administrator
- *
- */
+
 public class AddExpression extends SymbolExpression  {
 
 	public AddExpression(Expression left, Expression right) {

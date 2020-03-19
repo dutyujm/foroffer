@@ -31,7 +31,7 @@ public class CoachRacerDemo {
         Thread thread1 =new Thread(()->coachRacerDemo.racer(),"no1");
         Thread thread2 =new Thread(()->coachRacerDemo.racer(),"no2");
         Thread thread3 =new Thread(()->coachRacerDemo.racer(),"no3");
-        Thread thread4 = new Thread(()->coachRacerDemo.coach(),"no1433");
+        Thread thread4 =new Thread(()->coachRacerDemo.coach(),"no1433");
         thread4.start();
         thread1.start();
         thread2.start();

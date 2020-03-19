@@ -8,7 +8,7 @@ import java.util.HashMap;
 public class ClientTest {
 
 	public static void main(String[] args) throws IOException {
-		// TODO Auto-generated method stub
+
 		String expStr = getExpStr(); // a+b
 		HashMap<String, Integer> var = getValue(expStr);// var {a=10, b=20}
 		Calculator calculator = new Calculator(expStr);
@@ -25,7 +25,7 @@ public class ClientTest {
 		HashMap<String, Integer> map = new HashMap<>();
 
 		for (char ch : expStr.toCharArray()) {
-			if (ch != '+' && ch != '-') {
+			if (ch != '*' && ch != '?') {
 				if (!map.containsKey(String.valueOf(ch))) {
 					System.out.print("输入" + String.valueOf(ch) + "的值");
 					String in = (new BufferedReader(new InputStreamReader(System.in))).readLine();

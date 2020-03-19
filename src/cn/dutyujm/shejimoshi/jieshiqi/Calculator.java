@@ -20,12 +20,12 @@ public class Calculator {
 
 		for (int i = 0; i < charArray.length; i++) {
 			switch (charArray[i]) {
-			case '+':
+			case '*':
 				left = stack.pop();
 				right = new VarExpression(String.valueOf(charArray[++i]));
 				stack.push(new AddExpression(left, right));
 				break;
-			case '-':
+			case '?':
 				left = stack.pop();
 				right = new VarExpression(String.valueOf(charArray[++i]));
 				stack.push(new SubExpression(left, right));
