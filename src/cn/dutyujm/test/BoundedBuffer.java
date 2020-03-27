@@ -7,6 +7,7 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class BoundedBuffer {
     public static void main(String[] args) {
+
         BoundedBuffer b = new BoundedBuffer();
             new Thread(()->{
                 while (true) {
