@@ -1,6 +1,5 @@
 package cn.dutyujm.sort;
 
-import javafx.beans.binding.ObjectBinding;
 
 import java.util.Objects;
 import java.util.Queue;

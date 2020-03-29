@@ -50,9 +50,4 @@ public class ReadWriteDemo {
         thread3.start();
     }
 
-
-
-
-
-
 }
