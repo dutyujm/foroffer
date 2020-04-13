@@ -5,7 +5,7 @@ import java.util.concurrent.locks.ReentrantLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class ReadWriteDemo {
-    private Map<String,String> map = new HashMap<String,String>();//操作的map对象
+    private Map<String,String> map = new HashMap<>();//操作的map对象
     private ReentrantReadWriteLock readWriteLock = new ReentrantReadWriteLock();
     private ReentrantReadWriteLock.ReadLock readLock = readWriteLock.readLock();//读锁
     private ReentrantReadWriteLock.WriteLock writeLock = readWriteLock.writeLock();//写锁

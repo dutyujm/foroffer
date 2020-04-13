@@ -1,24 +1,27 @@
 package cn.dutyujm.test;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.concurrent.ThreadLocalRandom;
-import java.util.concurrent.atomic.LongAdder;
+
+import java.util.Objects;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class fgasdfd {
     public static void main(String[] args) {
+        final ExecutorService executorService = Executors.newSingleThreadExecutor();
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        int i = 0 ;
+        for (int i1 = 0; i1 < i; i1++) {
+            for (int j = 0; j <6 ; j++) {
+                for (int k = 0; k <5 ; k++) {
 
-        LongAdder e = new LongAdder();
-        e.add(243432342343234L);
-        e.increment();
-        e.increment();
-        e.increment();
-        e.increment();
+                }
+            }
+        }
+        Objects.isNull(1);
 
-        System.out.println(e.longValue());
-        System.out.println(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm", Locale.CHINA)));
 
     }
 }

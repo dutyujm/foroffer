@@ -1,8 +1,10 @@
 package cn.dutyujm.multithread.ThreadPool;
 
+import java.lang.ref.WeakReference;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.concurrent.*;
 
 public class CreatPool {
@@ -21,18 +23,15 @@ public class CreatPool {
         //定时地执行任务
         ScheduledExecutorService scheduledThreadPool = Executors.newScheduledThreadPool(5);
 
-
-            Callable<String> ca1  = new Callable() {
-                @Override
-                public String call() throws Exception {
-                    Thread.sleep(500);
-                    return "sss";
-                }
+            Callable<String> ca1  = () -> {
+                Thread.sleep(500);
+                return "sss";
             };
-            FutureTask<String> ft1 = new FutureTask<String>(()-> "null");
+            FutureTask<String> ft1 = new FutureTask<>(ca1);
 
         for (int i = 0; i < 10; i++) {
             cachedThreadPool.submit(ft1);
+            cachedThreadPool.submit(ca1);
         }
         CompletableFuture<String> future =  CompletableFuture.supplyAsync(()-> "null");
         CompletableFuture<String> future2 = future.thenApplyAsync((result) -> result+"sss");
