@@ -10,11 +10,11 @@ public class Solution {
         if (root==null) {
             return new int[0];
         }
-        Stack<TreeNode> queue = new Stack<>();
+        Queue<TreeNode> queue = new LinkedList<>();
         queue.add(root);
         ArrayList<Integer> arrayList = new ArrayList<>();
         while(!queue.isEmpty()) {
-            TreeNode node = queue.pop();
+            TreeNode node = queue.poll();
             arrayList.add(node.val);
             if(node.left != null) queue.add(node.left);
             if(node.right != null) queue.add(node.right);
