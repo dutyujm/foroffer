@@ -5,24 +5,36 @@ public class Solution {
         if (strs == null || strs.length == 0) {
             return "";
         }
-        String prefix = strs[0];
-        int count = strs.length;
-        for (int i = 1; i < count; i++) {
-            prefix = longestCommonPrefix(prefix, strs[i]);
-            if (prefix.length() == 0) {
-                break;
+        int min  = Integer.MAX_VALUE;
+        for (int i = 0; i < strs.length; i++) {
+            if (strs[i].length()<min) {
+                min = strs[i].length();
             }
         }
-        return prefix;
-    }
+        int low = 0;
+        int high = min;
+        while(low<high) {
+            int mid = (high-low+1)/2 +low;
+            if (isCommonPrefix(strs,mid)){
+                low = mid;
+            }else {
+                high = mid-1;
+            }
 
-    public String longestCommonPrefix(String str1, String str2) {
-        int length = Math.min(str1.length(), str2.length());
-        int index = 0;
-        while (index < length && str1.charAt(index) == str2.charAt(index)) {
-            index++;
         }
-        return str1.substring(0, index);
+        return strs[0].substring(0,low);
     }
-
+    public boolean isCommonPrefix(String[] strs, int length) {
+        String str0 = strs[0].substring(0,length);
+        int count = strs.length;
+        for (int i = 0; i < count; i++) {
+            String str = strs[i];
+            for (int j = 0; j < length; j++) {
+                if (str0.charAt(j) != str.charAt(j)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 }
