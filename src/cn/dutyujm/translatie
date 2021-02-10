@@ -1,3 +1,0 @@
-The ref column shows which columns or constants are compared to the index named in the key column to select rows from the table.
-
-If the value is func, the value used is the result of some function. To see which function, use SHOW WARNINGS following EXPLAIN to see the extended EXPLAIN output. The function might actually be an operator such as an arithmetic operator.

@@ -3,7 +3,16 @@ package cn.dutyujm.shejimoshi.singleton;
 import cn.dutyujm.multithread.t2.M;
 
 public class MeiJu {
-
+    public enum I {
+        INSTANCE;
+        private MeiJu instance;
+        I() {
+            instance = new MeiJu();
+        }
+        public I getInstance(){
+            return this;
+        }
+    }
     public enum SomeThing {
         INSTANCE;
         private MeiJu instance;
