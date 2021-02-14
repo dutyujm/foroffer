@@ -16,9 +16,9 @@ public class Test {
         node.left.left = new Node(4);
         node.left.right = new Node(5);
 
-        node.right = new Node(3);
-        node.right.left = new Node(6);
-        node.right.right = new Node(7);
+//        node.right = new Node(3);
+//        node.right.left = new Node(6);
+//        node.right.right = new Node(7);
         Integer[] preArr = new Integer[]{1,2,4,5,3,6,7};
         Arrays.sort(preArr,(i1,i2)-> i2-i1);
 
@@ -29,6 +29,8 @@ public class Test {
         System.out.println(fuyuan(pre,in));
         System.out.println(" ");
         in(fuyuan(pre,in));
+
+        System.out.println(pingheng(node));
     }
 
 
@@ -75,7 +77,20 @@ public class Test {
         return res;
     }
 
+    private static boolean pingheng(Node node) {
+        int high = high(node.left);
+        int high1 = high(node.right);
+        return Math.abs(high - high1) <= 1;
+    }
 
+    private static int high(Node node) {
+        if (node == null) {
+            return 0;
+        }
+        int leftHigh = high(node.left);
+        int rightHigh = high(node.right);
+        return 1+Math.max(leftHigh, rightHigh);
+    }
 }
 
 
