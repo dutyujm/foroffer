@@ -91,6 +91,25 @@ public class Test {
         int rightHigh = high(node.right);
         return 1+Math.max(leftHigh, rightHigh);
     }
+
+    public static Info calMax(Node node) {
+        if (node == null) {
+            return new Info(0,0);
+        }
+        Info left = calMax(node.left);
+        Info right = calMax(node.right);
+        int high = Math.max(left.high, right.high)+1;
+        int maxHigh = Math.max(Math.max(left.high+ right.high +1, left.maxHigh),right.maxHigh);
+        return new Info(maxHigh,high);
+    }
+    public static class Info{
+        public int maxHigh;
+        public int high;
+        public Info(int maxHigh,int high) {
+            this.maxHigh = maxHigh;
+            this.high = high;
+        }
+    }
 }
 
 
