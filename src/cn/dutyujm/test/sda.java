@@ -299,6 +299,133 @@ public class sda {
         return slow;
 
     }
+
+    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+        ListNode res = new ListNode(0);
+        ListNode tmp = res;
+        while (l1!=null && l2!=null) {
+            if (l1.val>l2.val) {
+                res.next = l2;
+                l2 = l2.next;
+            }else {
+                res.next = l1;
+                l1 = l1.next;
+            }
+            res = res.next;
+
+        }
+        if (l1!=null) {
+            res.next = l1;
+        }
+        if (l2!=null) {
+            res.next = l2;
+        }
+        return tmp.next;
+    }
+
+
+    public boolean isSubStructure(TreeNode A, TreeNode B) {
+        // 但凡是空
+        if (A==null||B==null) {
+            return false;
+        }
+        // 看看在这个节点是不是
+        if (isSubStructure(A,B)){
+            return true;
+        }else {
+            return isSubStructure(A.left,B)|| isSubStructure(A.right,B);
+        }
+        // 看看在儿子节点是不是
+    }
+
+    public boolean f1(TreeNode A,TreeNode B) {
+        if (B==null) {
+            return true;
+        }
+        if (A==null) {
+            return false;
+        }
+        if (A.val == B.val) {
+            return f1(A.left,B.left) && f1(A.right,B.right);
+        }
+        return false;
+    }
+
+    public TreeNode mirrorTree(TreeNode root) {
+        if (root.right==null && root.left==null) {
+            return null;
+        }
+        TreeNode tmp = root.left;
+        root.left = root.right;
+        root.right = tmp;
+        mirrorTree(root.left);
+        mirrorTree(root.right);
+        return root;
+    }
+    public boolean isSymmetric(TreeNode root) {
+        if (root==null) {
+            return true;
+        }
+        return recur(root.left,root.right);
+    }
+
+    boolean recur(TreeNode L, TreeNode R) {
+        if(L == null && R == null) {
+            return true;
+        }
+        if(L == null || R == null || L.val != R.val) {
+            return false;
+        }
+        return recur(L.left, R.right) && recur(L.right, R.left);
+    }
+
+    public int[] spiralOrder(int[][] matrix) {
+
+        if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
+            return new int[0];
+        }
+        int rows = matrix.length;
+        int columns = matrix[0].length;
+        int[] order = new int[rows * columns];
+        int index = 0;
+        int left = 0;
+        int right = columns - 1;
+        int  top = 0;
+        int bottom = rows - 1;
+        while (left <= right && top <= bottom) {
+            for (int column = left; column <= right; column++) {
+                order[index++] = matrix[top][column];
+            }
+            for (int row = top + 1; row <= bottom; row++) {
+                order[index++] = matrix[row][right];
+            }
+            if (left < right && top < bottom) {
+                for (int column = right - 1; column > left; column--) {
+                    order[index++] = matrix[bottom][column];
+                }
+                for (int row = bottom; row > top; row--) {
+                    order[index++] = matrix[row][left];
+                }
+            }
+            left++;
+            right--;
+            top++;
+            bottom--;
+        }
+        return order;
+
+
+
+
+    }
+
+
+
+
+
+
+
+
     public static void main(String[] args) {
 
     }
