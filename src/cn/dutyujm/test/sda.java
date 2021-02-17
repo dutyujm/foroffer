@@ -1,6 +1,10 @@
 package cn.dutyujm.test;
 import cn.dutyujm.leetcode.foroffer.no06.ListNode;
 import cn.dutyujm.leetcode.foroffer.no07.TreeNode;
+import cn.dutyujm.leetcode.foroffer.no35.Node;
+import cn.dutyujm.multithread.t2.M;
+import cn.dutyujm.shejimoshi.singleton.MeiJu;
+import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
 
 import java.lang.*;
 import java.util.*;
@@ -456,17 +460,21 @@ public class sda {
         return arr;
     }
 
-    public List<List<Integer>> levelOrder(TreeNode root) {
+    public List<List<Integer>> levelOrder2(TreeNode root) {
         List<List<Integer>>  res = new ArrayList<>();
         Queue<TreeNode> queue = new LinkedList<>();
         if(root!=null){
             queue.add(root);
         }
         while (!queue.isEmpty()) {
-            List<Integer> tmp = new ArrayList<>();
+            LinkedList<Integer> tmp = new LinkedList<>();
             for (int i = queue.size(); i >0 ; i--) {
                 TreeNode tmpNode = queue.poll();
-                tmp.add(tmpNode.val);
+                if(res.size() % 2 == 0) {
+                    tmp.addLast(tmpNode.val);
+                } else {
+                    tmp.addFirst(tmpNode.val);
+                }
 
                 if(tmpNode.left!=null) {
                     queue.add(tmpNode.left);
@@ -481,8 +489,112 @@ public class sda {
         return res;
     }
 
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        List<List<Integer>> res = new ArrayList<>();
+        Stack<TreeNode> stack = new Stack<>();
+        if (root==null) {
+            stack.add(root);
+        }
+        int j = 0;
+        while (!stack.isEmpty()) {
+            List<Integer> tmp = new ArrayList<>();
+            Stack<TreeNode> tmpStack = new Stack<>();
+            for (int i = stack.size(); i >=0 ; i--) {
+                TreeNode pop = stack.pop();
+                tmp.add(pop.val);
+                if ((j&2)==0) {
+                    if (pop.left!=null) {
+                        tmpStack.push(pop.left);
+                    }
+                    if (pop.right!=null) {
+                        tmpStack.push(pop.right);
+                    }
+                }else {
+                    if (pop.right!=null) {
+                        tmpStack.push(pop.right);
+                    }
+                    if (pop.left!=null) {
+                        tmpStack.push(pop.left);
+                    }
+                }
+            }
+            stack = tmpStack;
+            res.add(tmp);
+            j++;
+        }
+        return res;
+    }
 
+    public boolean verifyPostorder(int[] postorder) {
+        return cur(postorder,0,postorder.length-1);
+    }
+    public boolean cur(int[] postorder,int i,int j) {
+        if (i>=j) {
+            return true;
+        }
+        int p = i;
+        while (postorder[p]<postorder[j]) {
+            p++;
+        }
+        int m =p;
+        while (postorder[p]>postorder[j]) {
+            p++;
+        }
+        return p==j && cur(postorder,i,m-1) && cur(postorder,m,p-1);
+    }
+
+    public List<List<Integer>> pathSum(TreeNode root, int sum) {
+        List<List<Integer>> res = new ArrayList<>();
+        List<Integer> tmp = new ArrayList<>();
+
+        cur(root.left,sum,tmp,res);
+        return res;
+    }
+    public void cur(TreeNode root, int sum, List<Integer> tmp ,List<List<Integer>> res) {
+        if (root==null) {
+            return;
+        }
+        if (root.val<sum) {
+            tmp.add(root.val);
+            ArrayList<Integer> integers1 = new ArrayList<>(tmp);
+            ArrayList<Integer> integers2 = new ArrayList<>(tmp);
+            cur(root.left,sum-root.val,integers1,res);
+            cur(root.right,sum-root.val,integers2,res);
+        }else if (root.val==sum) {
+            tmp.add(root.val);
+            if (root.left==null&&root.right==null){
+                res.add(tmp);
+            }
+        }
+    }
+
+
+    public static Node copyRandomList(Node head) {
+        if (head==null) {
+            return null;
+        }
+        Map<Node,Node> map  = new HashMap<>();
+        Node tmp = head;
+        while (tmp!=null) {
+            map.put(tmp,new Node(tmp.val));
+            tmp = tmp.next;
+        }
+        tmp = head;
+        while (tmp!=null) {
+            map.get(tmp).next = map.get(tmp.next);
+            map.get(tmp).random = map.get(tmp.random);
+            tmp = tmp.next;
+        }
+        return map.get(head);
+    }
     public static void main(String[] args) {
-        List<Integer> a1 = new ArrayList<>();
+        Node node = new Node(3);
+        Node node2 = new Node(3);
+        Node node3 = new Node(3);
+
+        node.next = node2;
+        node2.next = node3;
+        node2.random = node;
+        copyRandomList(node);
     }
 }
