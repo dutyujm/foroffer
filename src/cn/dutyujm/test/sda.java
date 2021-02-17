@@ -413,20 +413,76 @@ public class sda {
             bottom--;
         }
         return order;
-
-
-
-
     }
 
 
 
+    public boolean validateStackSequences(int[] pushed, int[] popped) {
+        Stack<Integer> stack = new Stack<>();
+        int i = 0;
+        for (int item : pushed) {
+            stack.push(item);
+            while (!stack.isEmpty() && popped[i] == stack.peek()) {
+                stack.pop();
+                i++;
+            }
+        }
+        return !stack.isEmpty();
+    }
 
+    public int[] levelOrder1(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        Queue<TreeNode> tmp = new LinkedList<>();
+        if (root!=null) {
+            tmp.add(root);
+            res.add(root.val);
+        }
 
+        while (!tmp.isEmpty()) {
+            TreeNode tmpNode = tmp.poll();
+            if(tmpNode.left!=null) {
+                res.add(tmpNode.left.val);
+                tmp.add(tmpNode.left);
+            }
+            if(tmpNode.right!=null) {
+                res.add(tmpNode.right.val);
+                tmp.add(tmpNode.right);
+            }
+        }
+        int[] arr = new int[res.size()];
+        for (int i = 0; i < res.size(); i++) {
+            arr[i] = res.get(i);
+        }
+        return arr;
+    }
 
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        List<List<Integer>>  res = new ArrayList<>();
+        Queue<TreeNode> queue = new LinkedList<>();
+        if(root!=null){
+            queue.add(root);
+        }
+        while (!queue.isEmpty()) {
+            List<Integer> tmp = new ArrayList<>();
+            for (int i = queue.size(); i >0 ; i--) {
+                TreeNode tmpNode = queue.poll();
+                tmp.add(tmpNode.val);
+
+                if(tmpNode.left!=null) {
+                    queue.add(tmpNode.left);
+                }
+                if(tmpNode.right!=null) {
+                    queue.add(tmpNode.right);
+                }
+            }
+            res.add(tmp);
+
+        }
+        return res;
+    }
 
 
     public static void main(String[] args) {
-
+        List<Integer> a1 = new ArrayList<>();
     }
 }
