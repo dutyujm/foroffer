@@ -31,6 +31,33 @@ public class KuaiPai {
 
     }
 
+    private void myQuickSort(int[] arr,int left ,int right) {
+        if (left>right) {
+            return;
+        }
+        int lp = left;
+        int rp = right;
+        int tmp = arr[lp];
+        while (lp<rp) {
+            while (lp<rp&&arr[rp]<=tmp) {
+                rp--;
+            }
+            while (lp<rp && arr[lp]>=tmp) {
+                lp++;
+            }
+            if (lp<rp) {
+                int t = arr[lp];
+                arr[lp] = arr[rp];
+                arr[rp] = t;
+            }
+        }
+        arr[left] = arr[lp];
+        arr[lp] = tmp;
+        quickSort(arr,left,lp-1);
+        quickSort(arr,lp+1,right);
+
+
+    }
 
 
     public static void main(String[] args) {

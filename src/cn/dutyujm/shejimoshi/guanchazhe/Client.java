@@ -10,7 +10,6 @@ public class Client {
         Sina sina = new Sina();
         weatherData.register(sina);
         weatherData.setData(1.1F,3.1F,4.1F);
-        var name = "ssss";
-        System.out.println(name.getClass());
+
     }
 }
